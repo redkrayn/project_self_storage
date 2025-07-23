@@ -145,40 +145,23 @@
       <h1 class="text-center fw-bold SelfStorage_green mb-4">Забота о ваших ценностях – наша главная задача</h1>
       <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner border">
-          <div class="carousel-item active">
-            <div class="row p-5">
-              <div class="col-12 col-lg-6 d-flex flex-column align-items-center justify-content-center">
-                <div>
-                  <h4 class="fw-bold">«Теперь могу хранить вещи по-умному!»</h4>
-                  <p class="fs_24">Быстро собрали вещи и бесплатно доставили до ближайшего склада.</p>
-                  <p class="fs_24">Удобная система напоминания о том, что срок хранения подходит к концу.</p>
-                  <p class="fs_24">Вещи были в целостности, ничего не повредилось.</p>
-                  <a href="#" class="SelfStorage_green">Читать отзыв полностью</a>
+          {% for review in reviews %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+              <div class="row p-5">
+                <div class="col-12 col-lg-6 d-flex flex-column align-items-center justify-content-center">
+                   <div>
+                    <h4 class="fw-bold">«{{ review.slogan }}»</h4>
+                    <p class="fs_24">{{ review.text|linebreaksbr }}</p>
+                  </div>
+                </div>
+                <div class="col-12 col-lg-6 d-flex flex-column align-items-center justify-content-center">
+                  <img src="{{ review.photo.url }}" width="290" height="290" class="rounded-pill mb-3" alt="{{ review.full_name }}" />
+                  <span class="fw-bold">{{ review.full_name }}</span>
+                  <span>{{ review.city }}</span>
                 </div>
               </div>
-              <div class="col-12 col-lg-6 d-flex flex-column align-items-center justify-content-center">
-                <img src="img/img1.png" width="290" height="290" class="rounded-pill mb-3" alt="" />
-                <span class="fw-bold">Катерина Петрова</span>
-                <span>Одинцово</span>
-              </div>
             </div>
-          </div>
-          <div class="carousel-item">
-            <div class="row p-5">
-              <div class="col-12 col-lg-6 d-flex flex-column align-items-center justify-content-center">
-                <div>
-                  <h4 class="fw-bold">«Больше не мучаюсь: выкидывать вещи или нет»</h4>
-                  <p class="fs_24">Очень тяжело было прощаться с вещами, которые были у меня с самого детства. На новую квартиру все никак не могло уместиться, начал ломать голову, что же делать. Решил попробовать арендовать бокс на полгода, такой опыт был впервые.</p>
-                  <a href="#" class="SelfStorage_green">Читать отзыв полностью</a>
-                </div>
-              </div>
-              <div class="col-12 col-lg-6 d-flex flex-column align-items-center justify-content-center">
-                <img src="img/img2.png" width="290" height="290" class="rounded-pill mb-3" alt="" />
-                <span class="fw-bold">Николай Овсянников</span>
-                <span>Люберцы</span>
-              </div>
-            </div>
-          </div>
+          {% endfor %}
         </div>
         <div class="w-100 d-flex justify-content-center mt-5">
           <button data-bs-target="#carouselExampleControls" data-bs-slide="prev" class="btn rounded-pill d-flex justify-content-center align-items-center SelfStorage__bg_green" style="width: 66px; height: 66px;">
