@@ -17,6 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from warehouse.views import show_index, show_personal_account, show_faq, show_boxes
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', show_index, name='index'),
+    path('personal-account/', show_personal_account, name='personal-account'),
+    path('faq/', show_faq, name='faq'),
+    path('boxes/', show_boxes, name='boxes'),
 ]
