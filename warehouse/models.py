@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 import datetime
-
+from custom_user.models import CustomUser
 
 class Warehouse(models.Model):
     name = models.CharField(max_length=255)
@@ -43,7 +43,9 @@ class Order(models.Model):
     start_date = models.DateField(default=timezone.now)
     end_date = models.DateField(default=month_more)
     price_per_day_overdue = models.FloatField(default=100)
-    # user
+    user = models.ForeignKey(
+        CustomUser, on_delete=models.PROTECT, related_name="orders"
+    )
     string_for_qr_code = models.UUIDField()
 
     @property
