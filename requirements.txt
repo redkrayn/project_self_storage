@@ -1,0 +1,4 @@
+Django==5.2.4
+environs==14.2.0
+pillow==11.2.1
+
