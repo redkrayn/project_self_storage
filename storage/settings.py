@@ -32,7 +32,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'warehouse.apps.WarehouseConfig',
-    'custom_user.apps.CustomUserConfig'
+    'custom_user.apps.CustomUserConfig',
+    'reviews.apps.ReviewsConfig'
 ]
 
 MIDDLEWARE = [
