@@ -1,0 +1,18 @@
+<aside class="modal fade" id="SignModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex justify-content-center align-items-center">
+        <form method="post" class="d-flex flex-column align-items-center" style="max-width: 420px">
+          <h1 class="modal-title text-center fw-bold mb-3">Вход</h1>
+          {% csrf_token %}
+          {{ form.as_p}}
+          <button type="submit" class="btn border-8 py-3 px-5 mt-5 mb-3 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange">Войти</button>
+          <span>Нет аккаунта? <a href="#" class="SelfStorage_orange" data-bs-toggle="modal" data-bs-target="#RegModal" data-bs-dismiss="modal" aria-label="Close">Зарегистрируйтесь на сайте</a></span>
+        </form>
+      </div>
+    </div>
+  </div>
+</aside>
