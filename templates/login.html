@@ -5,7 +5,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body d-flex justify-content-center align-items-center">
-        <form method="post" class="d-flex flex-column align-items-center" style="max-width: 420px">
+        <form  id="authForm" method="post" class="d-flex flex-column align-items-center" style="max-width: 420px">
           <h1 class="modal-title text-center fw-bold mb-3">Вход</h1>
           {% csrf_token %}
           {{ form.as_p}}

@@ -29,6 +29,7 @@ class EmailWidget(Widget):
             "class": "form-control border-8 mb-4 py-3 px-5 border-0 fs_24 SelfStorage__bg_lightgrey",
             "placeholder": "E-mail",
             "type": "email",
+            "name": "email"
         }
         final_attrs = self.flat_att(attrs)
         return mark_safe(f"<input {final_attrs}>")
@@ -45,6 +46,7 @@ class PasswordWidget(Widget):
             "class": "form-control border-8 mb-4 py-3 px-5 border-0 fs_24 SelfStorage__bg_lightgrey",
             "placeholder": "Password",
             "type": "text",
+            "name": "password"
         }
         final_attrs = self.flat_att(attrs)
         return mark_safe(f"<input {final_attrs}>")

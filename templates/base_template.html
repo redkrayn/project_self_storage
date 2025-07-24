@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
-    <link rel="stylesheet" href="{% static "css/Style.css" %}">
+    <link rel="stylesheet" href="{% static 'css/Style.css' %}" />
     <title>SelfStorage</title>
   </head>
   <body>
@@ -23,7 +23,7 @@
               <a class="nav-link SelfStorage_black" href="{% url 'faq' %}">Правила хранения</a>
             </li>
             <li class="nav-item me-5">
-              <a class="nav-link SelfStorage_black" href="{% url 'boxes'%}">Арендовать бокс</a>
+              <a class="nav-link SelfStorage_black" href="{% url 'boxes' %}">Арендовать бокс</a>
             </li>
             <li class="nav-item me-5">
               <a class="nav-link SelfStorage_green" href="#" data-bs-toggle="modal" data-bs-target="#SignModal">Войти</a>
@@ -40,8 +40,8 @@
         </div>
       </nav>
     </header>
-    {% include 'register.html'%}
-    {% include 'login.html'%}
+    {% include 'register.html' %}
+    {% include 'login.html' %}
     {% block content %}
     {% endblock %}
     <footer class="container py-5">
@@ -80,7 +80,7 @@
         </div>
         <div class="col-6 col-md-4 d-flex flex-column">
           <p>
-            <a href="{%url 'faq' %}" class="link-dark text-decoration-none">Правила хранения</a>
+            <a href="{% url 'faq' %}" class="link-dark text-decoration-none">Правила хранения</a>
           </p>
           <p>
             <a href="#" class="link-dark text-decoration-none">Адреса складов</a>
@@ -103,7 +103,37 @@
         <h6 class="SelfStorage_grey text-center mt-5">© 2022 SelfStorage. Использование материалов запрещено без письменного согласия</h6>
       </div>
     </footer>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const authForm = document.getElementById('authForm')
+        authForm.addEventListener('submit', function (event) {
+          event.preventDefault() 
+          console.log(authForm)
+          const formData = new FormData(authForm)
+          console.log(formData)
+          fetch('/login/', {
+            // Запрашиваем URL для обработки формы
+            method: 'POST',
+            body: formData,
+            credentials: 'same-origin' // Отправляем куки (если нужно)
+          })
+            .then((response) => response.json()) // Преобразовываем ответ сервера в JSON
+            .then((data) => {
+              if ('message' in data) {
+                alert(data.message) // Успех, закрываем модальное окно
+                $('#SignModal').modal('hide')
+              } else if ('error' in data) {
+                alert(data.error) // Ошибка, сообщаем пользователю
+              }
+            })
+            .catch((error) => {
+              console.error('Ошибка:', error)
+            })
+        })
+      })
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    {% block extra_scripts %}{% endblock %}
+    {% block extra_scripts %}
+    {% endblock %}
   </body>
 </html>

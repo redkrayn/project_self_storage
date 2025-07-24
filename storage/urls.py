@@ -20,10 +20,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from warehouse.views import show_index, show_personal_account, show_faq, show_boxes
+from custom_user.views import login
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', show_index, name='index'),
     path('personal-account/', show_personal_account, name='personal-account'),
     path('faq/', show_faq, name='faq'),
     path('boxes/', show_boxes, name='boxes'),
+    path('login/', login, name='login'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
