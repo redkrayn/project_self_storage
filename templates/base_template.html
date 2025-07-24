@@ -112,18 +112,17 @@
           const formData = new FormData(authForm)
           console.log(formData)
           fetch('/login/', {
-            // Запрашиваем URL для обработки формы
             method: 'POST',
             body: formData,
-            credentials: 'same-origin' // Отправляем куки (если нужно)
+            credentials: 'same-origin' 
           })
-            .then((response) => response.json()) // Преобразовываем ответ сервера в JSON
+            .then((response) => response.json()) 
             .then((data) => {
               if ('message' in data) {
-                alert(data.message) // Успех, закрываем модальное окно
+                alert(data.message) 
                 $('#SignModal').modal('hide')
               } else if ('error' in data) {
-                alert(data.error) // Ошибка, сообщаем пользователю
+                alert(data.error) 
               }
             })
             .catch((error) => {
