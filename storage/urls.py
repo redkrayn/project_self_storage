@@ -1,3 +1,5 @@
+from django.urls import path
+from warehouse import views
 """
 URL configuration for storage project.
 
@@ -23,6 +25,7 @@ from django.conf.urls.static import static
 from warehouse.views import show_index, show_personal_account, show_faq, show_boxes, show_profile
 from custom_user.views import login_view, register
 urlpatterns = [
+    path('calculate-cost/', views.calculate_cost, name='calculate_cost'),
     path('admin/', admin.site.urls),
     path('', show_index, name='index'),
     path('personal-account/', show_personal_account, name='personal-account'),
