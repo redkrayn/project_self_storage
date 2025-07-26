@@ -1,13 +1,18 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from reviews.models import Review
-from custom_user.forms import LoginForm
+from custom_user.forms import LoginForm, RegistrationForm
 
-# Create your views here.
+
 def show_index(request):
-    if request.method == "GET":
-        form = LoginForm()
-        reviews = Review.objects.all()
-        return render(request, "index.html", {"reviews": reviews, "form": form})
+    reviews = Review.objects.all()
+    return render(request, 'index.html', {
+        'form': LoginForm(),
+        'registration_form': RegistrationForm(),
+        'reviews': reviews,
+        'user': request.user,
+        'is_authenticated': request.user.is_authenticated
+    })
 
 
 def show_personal_account(request):
@@ -20,3 +25,8 @@ def show_faq(request):
 
 def show_boxes(request):
     return render(request, "boxes.html")
+
+
+@login_required
+def show_profile(request):
+    return render(request, "profile.html")

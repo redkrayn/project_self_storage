@@ -45,7 +45,7 @@ class PasswordWidget(Widget):
         attrs = {
             "class": "form-control border-8 mb-4 py-3 px-5 border-0 fs_24 SelfStorage__bg_lightgrey",
             "placeholder": "Password",
-            "type": "text",
+            "type": "password",
             "name": "password"
         }
         final_attrs = self.flat_att(attrs)

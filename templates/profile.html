@@ -1,0 +1,18 @@
+{% extends 'base_template.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Личный кабинет</h2>
+
+    {% if user.is_authenticated %}
+        <p><strong>Логин:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Имя:</strong> {{ user.first_name }}</p>
+        <p><strong>Фамилия:</strong> {{ user.last_name }}</p>
+
+    {% else %}
+        <p>Пожалуйста, <a href="{% url 'login' %}">войдите</a> в систему.</p>
+    {% endif %}
+</div>
+{% endblock %}

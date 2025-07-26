@@ -128,3 +128,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 AUTH_USER_MODEL = 'custom_user.CustomUser'
+
+LOGIN_REDIRECT_URL = 'profile'
+
+LOGIN_URL = 'login'
