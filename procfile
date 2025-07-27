@@ -1,0 +1,4 @@
+# Procfile
+web: python manage.py runserver
+beat: celery -A storage.celery_app beat --loglevel=info
+worker: celery -A storage.celery_app worker --pool=solo -l info

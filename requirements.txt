@@ -2,3 +2,6 @@ Django==5.2.4
 environs==14.2.0
 pillow==11.2.1
 
+django-celery-beat==2.8.1
+redis==6.2.0
+honcho==2.0.0

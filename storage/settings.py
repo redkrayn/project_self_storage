@@ -27,6 +27,13 @@ EMAIL_USE_SSL = True
 EMAIL_HOST_USER = env.str('HOST_USER')
 EMAIL_HOST_PASSWORD = env.str('EMAIL_PASSWORD')
 DEFAULT_FROM_EMAIL = env.str('DEFAULT_EMAIL')
+
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
 # Application definition
 
 INSTALLED_APPS = [
@@ -36,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_celery_beat',
+    'storage',
 
     'warehouse.apps.WarehouseConfig',
     'custom_user.apps.CustomUserConfig',
