@@ -33,7 +33,7 @@
 <div class="tab-content" id="pills-tabContent">
   <div class="tab-pane fade show active" id="pills-all" role="tabpanel" aria-labelledby="pills-home-tab">
     {% for cell in cells %}
-      <span  class="row text-decoration-none py-3 px-4 mt-5 SelfStorage__boxlink">
+      <span class="row text-decoration-none py-3 px-4 mt-5 SelfStorage__boxlink">
         <div class="col-12 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
           <span class="SelfStorage_green fs_24 me-2">{{ cell.floor }} эт.</span><span class="fs_24">№{{ cell.cell_id }}</span>
         </div>
@@ -44,7 +44,11 @@
           <span class="fs_24">{{ cell.width }} х {{ cell.length }} х {{ cell.height }} м²</span>
         </div>
         <div class="col-12 col-lg-3">
-          <a {% if user.is_authenticated %}href="{% url 'add_order' cell.id%}"{% endif %} class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">{{ cell.price }} ₽</a>
+          {% if user.is_authenticated %}
+            <a href="{% url 'add_order' cell.id %}" class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">{{ cell.price }} ₽</a>
+          {% else %}
+            <span class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">{{ cell.price }} ₽</span>
+          {% endif %}
         </div>
       </span>
     {% endfor %}
@@ -52,60 +56,72 @@
   <div class="tab-pane fade" id="pills-to3" role="tabpanel" aria-labelledby="pills-profile-tab">
     {% for cell in cells %}
       {% if cell.area < 3 %}
-        <a href="#" class="row text-decoration-none py-3 px-4 mt-5 SelfStorage__boxlink">
-          <div class="col-12 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
-            <span class="SelfStorage_green fs_24 me-2">{{ cell.floor }} эт.</span><span class="fs_24">№{{ cell.cell_id }}</span>
-          </div>
-          <div class="col-6 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
-            <span class="fs_24">{{ cell.area }} м²</span>
-          </div>
-          <div class="col-6 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
-            <span class="fs_24">{{ cell.width }} х {{ cell.length }} х {{ cell.height }} м²</span>
-          </div>
-          <div class="col-12 col-lg-3">
-            <a {% if user.is_authenticated %}href="{% url 'add_order' cell.id%}"{% endif %} class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">{{ cell.price }} ₽</a>
-          </div>
-        </a>
+      <span class="row text-decoration-none py-3 px-4 mt-5 SelfStorage__boxlink">
+        <div class="col-12 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
+          <span class="SelfStorage_green fs_24 me-2">{{ cell.floor }} эт.</span><span class="fs_24">№{{ cell.cell_id }}</span>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
+          <span class="fs_24">{{ cell.area }} м²</span>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
+          <span class="fs_24">{{ cell.width }} х {{ cell.length }} х {{ cell.height }} м²</span>
+        </div>
+        <div class="col-12 col-lg-3">
+          {% if user.is_authenticated %}
+            <a href="{% url 'add_order' cell.id %}" class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">{{ cell.price }} ₽</a>
+          {% else %}
+            <span class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">{{ cell.price }} ₽</span>
+          {% endif %}
+        </div>
+      </span>
       {% endif %}
     {% endfor %}
   </div>
   <div class="tab-pane fade" id="pills-to10" role="tabpanel" aria-labelledby="pills-contact-tab">
     {% for cell in cells %}
       {% if cell.area < 10 %}
-        <a href="#" class="row text-decoration-none py-3 px-4 mt-5 SelfStorage__boxlink">
-          <div class="col-12 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
-            <span class="SelfStorage_green fs_24 me-2">{{ cell.floor }} эт.</span><span class="fs_24">№{{ cell.cell_id }}</span>
-          </div>
-          <div class="col-6 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
-            <span class="fs_24">{{ cell.area }} м²</span>
-          </div>
-          <div class="col-6 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
-            <span class="fs_24">{{ cell.width }} х {{ cell.length }} х {{ cell.height }} м²</span>
-          </div>
-          <div class="col-12 col-lg-3">
-            <a {% if user.is_authenticated %}href="{% url 'add_order' cell.id%}"{% endif %} class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">{{ cell.price }} ₽</a>
-          </div>
-        </a>
+      <span class="row text-decoration-none py-3 px-4 mt-5 SelfStorage__boxlink">
+        <div class="col-12 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
+          <span class="SelfStorage_green fs_24 me-2">{{ cell.floor }} эт.</span><span class="fs_24">№{{ cell.cell_id }}</span>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
+          <span class="fs_24">{{ cell.area }} м²</span>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
+          <span class="fs_24">{{ cell.width }} х {{ cell.length }} х {{ cell.height }} м²</span>
+        </div>
+        <div class="col-12 col-lg-3">
+          {% if user.is_authenticated %}
+            <a href="{% url 'add_order' cell.id %}" class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">{{ cell.price }} ₽</a>
+          {% else %}
+            <span class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">{{ cell.price }} ₽</span>
+          {% endif %}
+        </div>
+      </span>
       {% endif %}
     {% endfor %}
   </div>
   <div class="tab-pane fade" id="pills-from10" role="tabpanel" aria-labelledby="pills-contact-tab">
     {% for cell in cells %}
       {% if cell.area >= 10 %}
-        <a href="#" class="row text-decoration-none py-3 px-4 mt-5 SelfStorage__boxlink">
-          <div class="col-12 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
-            <span class="SelfStorage_green fs_24 me-2">{{ cell.floor }} эт.</span><span class="fs_24">№{{ cell.cell_id }}</span>
-          </div>
-          <div class="col-6 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
-            <span class="fs_24">{{ cell.area }} м²</span>
-          </div>
-          <div class="col-6 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
-            <span class="fs_24">{{ cell.width }} х {{ cell.length }} х {{ cell.height }} м²</span>
-          </div>
-          <div class="col-12 col-lg-3">
-            <a {% if user.is_authenticated %}href="{% url 'add_order' cell.id%}"{% endif %} class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">{{ cell.price }} ₽</a>
-          </div>
-        </a>
+      <span class="row text-decoration-none py-3 px-4 mt-5 SelfStorage__boxlink">
+        <div class="col-12 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
+          <span class="SelfStorage_green fs_24 me-2">{{ cell.floor }} эт.</span><span class="fs_24">№{{ cell.cell_id }}</span>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
+          <span class="fs_24">{{ cell.area }} м²</span>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
+          <span class="fs_24">{{ cell.width }} х {{ cell.length }} х {{ cell.height }} м²</span>
+        </div>
+        <div class="col-12 col-lg-3">
+          {% if user.is_authenticated %}
+            <a href="{% url 'add_order' cell.id %}" class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">{{ cell.price }} ₽</a>
+          {% else %}
+            <span class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">{{ cell.price }} ₽</span>
+          {% endif %}
+        </div>
+      </span>
       {% endif %}
     {% endfor %}
   </div>
