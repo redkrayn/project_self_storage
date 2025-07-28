@@ -1,4 +1,5 @@
 import datetime
+import uuid
 
 from django.conf import settings
 from django.core.mail import send_mail
@@ -81,7 +82,7 @@ class Order(models.Model):
     user = models.ForeignKey(
         CustomUser, on_delete=models.PROTECT, related_name="orders"
     )
-    string_for_qr_code = models.UUIDField()
+    string_for_qr_code = models.UUIDField(default=uuid.uuid4)
     is_active = models.BooleanField(default=True)
 
     @property
@@ -118,7 +119,7 @@ def send_order_creation_email(sender, instance, created, **kwargs):
         Ячейка: {cell_id}
         Дата начала: {start_date}
         Дата окончания: {end_date}
-        Стоимость: {instance.price_per_day_overdue} руб./день
+        Стоимость: {instance.cell} руб./день
 
         """
         send_mail(
