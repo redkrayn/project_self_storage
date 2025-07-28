@@ -27,5 +27,5 @@ urlpatterns = [
     path("register/", register, name="register"),
     path("profile/", show_profile, name="profile"),
     path("logout/", LogoutView.as_view(next_page="index"), name="logout"),
-    path("ajax_cells", ajax_cells, name="ajax_cells"),
+    path("ajax_cells/", ajax_cells, name="ajax_cells"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
