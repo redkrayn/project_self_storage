@@ -86,7 +86,6 @@ class Order(models.Model):
     is_active = models.BooleanField(default=True)
     adv_id = models.IntegerField(null=True, blank=True)
 
-
     @property
     def is_overdue(self):
         return self.end_date < timezone.now()

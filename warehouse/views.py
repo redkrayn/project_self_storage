@@ -112,13 +112,12 @@ def show_profile(request):
         messages.success(request, "Данные успешно обновлены!")
         return redirect("profile")
 
-    orders = Order.objects.filter(user=user)
+    orders = Order.objects.filter(user=user).order_by("-end_date")
 
     return render(request, "my-rent.html", {
         "user": user,
         "orders": orders,
     })
-
 
 
 def sales(request, adv_id):
