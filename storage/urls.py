@@ -12,6 +12,7 @@ from warehouse.views import (
     show_index,
     show_personal_account,
     show_profile,
+    ajax_cells
 )
 
 urlpatterns = [
@@ -26,4 +27,5 @@ urlpatterns = [
     path("register/", register, name="register"),
     path("profile/", show_profile, name="profile"),
     path("logout/", LogoutView.as_view(next_page="index"), name="logout"),
+    path("ajax_cells", ajax_cells, name="ajax_cells"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
