@@ -31,6 +31,7 @@ urlpatterns = [
     path('personal-account/', show_personal_account, name='personal-account'),
     path('faq/', show_faq, name='faq'),
     path('boxes/', show_boxes, name='boxes'),
+    path('boxes/<int:warehouse_id>/', show_boxes, name='box'),
     path('login/', login_view, name='login'),
     path('register/', register, name='register'),
     path('profile/', show_profile, name='profile'),

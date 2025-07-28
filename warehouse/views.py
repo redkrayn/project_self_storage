@@ -29,9 +29,11 @@ def show_faq(request):
     return render(request, "faq.html")
 
 
-def show_boxes(request):
+def show_boxes(request, warehouse_id=None):
+    if not warehouse_id:
+        warehouse_id = Warehouse.objects.order_by('name').first().id
     warehouses = Warehouse.objects.with_cell_counts().all()
-    return render(request, "boxes.html", {'warehouses': warehouses})
+    return render(request, "boxes.html", {'warehouses': warehouses, 'warehouse_id': warehouse_id})
 
 
 def calculate_cost(request):
