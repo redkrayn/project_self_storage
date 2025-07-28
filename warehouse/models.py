@@ -42,6 +42,9 @@ class Warehouse(models.Model):
 
     objects = WarehouseManager()
 
+    def __str__(self):
+        return f"{self.name} {self.address}"
+
 
 class Cell(models.Model):
     cell_id = models.CharField(max_length=255, unique=True)

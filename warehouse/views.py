@@ -30,7 +30,8 @@ def show_faq(request):
 
 
 def show_boxes(request):
-    return render(request, "boxes.html")
+    warehouses = Warehouse.objects.with_cell_counts().all()
+    return render(request, "boxes.html", {'warehouses': warehouses})
 
 
 def calculate_cost(request):
