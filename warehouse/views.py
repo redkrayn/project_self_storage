@@ -112,7 +112,6 @@ def show_profile(request):
             user.avatar = avatar
 
         user.save()
-        messages.success(request, "Данные успешно обновлены!")
         update_session_auth_hash(request, user)
         return redirect("profile")
 
