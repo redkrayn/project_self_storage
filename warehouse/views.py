@@ -32,7 +32,7 @@ def ajax_cells(request):
     warehouse_id = request.GET.get("warehouse_id")
     cells = Cell.objects.filter(warehouse_id=warehouse_id)
     rendered_template = render_to_string(
-        "cells_box.html", {"cells": cells}
+        "cells.html", {"cells": cells}
     )
     return JsonResponse({"template": rendered_template}, safe=False)
 
