@@ -57,6 +57,7 @@ class Order(models.Model):
         CustomUser, on_delete=models.PROTECT, related_name="orders"
     )
     string_for_qr_code = models.UUIDField()
+    is_active = models.BooleanField(default=True)
 
     @property
     def is_overdue(self):
