@@ -40,10 +40,6 @@ def ajax_cells(request):
     return JsonResponse({"template": rendered_template}, safe=False)
 
 
-def show_personal_account(request):
-    return render(request, "my-rent.html")
-
-
 def show_faq(request):
     return render(request, "faq.html")
 
@@ -93,4 +89,4 @@ def add_order(request, cell_id):
 
 @login_required
 def show_profile(request):
-    return render(request, "profile.html")
+    return render(request, "my-rent.html")
