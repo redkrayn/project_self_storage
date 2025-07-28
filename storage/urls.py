@@ -12,7 +12,8 @@ from warehouse.views import (
     show_profile,
     ajax_cells,
     add_order,
-    calculate_cost
+    calculate_cost,
+    sales
 )
 
 urlpatterns = [
@@ -27,5 +28,6 @@ urlpatterns = [
     path("profile/", show_profile, name="profile"),
     path("logout/", LogoutView.as_view(next_page="index"), name="logout"),
     path("ajax_cells/", ajax_cells, name="ajax_cells"),
-    path("add_order/<int:cell_id>/", add_order, name="add_order")
+    path("add_order/<int:cell_id>/", add_order, name="add_order"),
+    path("sales/<int:adv_id>/", sales, name="sales"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

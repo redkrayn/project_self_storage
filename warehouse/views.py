@@ -4,6 +4,7 @@ from django.core.mail import get_connection, send_mail
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
+from django.contrib import messages
 
 from custom_user.forms import LoginForm, RegistrationForm
 from reviews.models import Review
@@ -36,7 +37,7 @@ def ajax_cells(request):
         .distinct()
         .order_by("id")
     )
-    rendered_template = render_to_string("cells.html", {"cells": cells})
+    rendered_template = render_to_string("cells.html", {"cells": cells}, request=request)
     return JsonResponse({"template": rendered_template}, safe=False)
 
 
@@ -65,6 +66,7 @@ def calculate_cost(request):
     if request.method == "POST":
         email = request.POST.get("EMAIL1") or request.POST.get("EMAIL2")
         if email:
+            Request.objects.create(email=email)
             try:
                 send_mail(
                     "Hi everynyan",
@@ -73,7 +75,6 @@ def calculate_cost(request):
                     [email],
                     fail_silently=False,
                 )
-                Request.objects.create(email=email)
             except Exception as e:
                 print(f"Ошибка отправки: {e}")
         return redirect("index")
@@ -82,12 +83,44 @@ def calculate_cost(request):
 
 @login_required
 def add_order(request, cell_id):
+    adv_id = request.session.pop("adv_id", None)
     cell = Cell.objects.get(id=cell_id)
-    Order.objects.create(cell=cell, user=request.user)
+    Order.objects.create(cell=cell, user=request.user, adv_id=adv_id)
     return redirect("profile")
 
 
 @login_required
 def show_profile(request):
-    orders = Order.objects.filter(user=request.user).order_by("-created_at") 
-    return render(request, "my-rent.html", {"orders": orders})
+    user = request.user
+
+    if request.method == "POST":
+        email = request.POST.get("email")
+        phone = request.POST.get("phone")
+        password = request.POST.get("password")
+        avatar = request.FILES.get("avatar")
+
+        if email:
+            user.email = email
+        if phone:
+            user.phone = phone
+        if password:
+            user.set_password(password)
+        if avatar:
+            user.avatar = avatar
+
+        user.save()
+        messages.success(request, "Данные успешно обновлены!")
+        return redirect("profile")
+
+    orders = Order.objects.filter(user=user)
+
+    return render(request, "my-rent.html", {
+        "user": user,
+        "orders": orders,
+    })
+
+
+
+def sales(request, adv_id):
+    request.session["adv_id"] = adv_id
+    return redirect("index")

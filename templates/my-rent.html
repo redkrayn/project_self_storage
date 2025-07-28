@@ -11,43 +11,54 @@
       <div class="col-lg-9">
         <div class="card tab-content p-5">
           <div class="tab-pane fade show active" id="LK" role="tabpanel" aria-labelledby="LK-tab">
-            <div class="row">
+            <form method="POST" enctype="multipart/form-data" class="w-100">
+              {% csrf_token %}
+              <div class="row">
+
               <div class="col-12 col-sm-5 d-flex flex-column align-items-center">
-                <img src="img/image10.png" class="rounded-pill mb-3" alt="" />
-                <h4>{{user.name}}</h4>
+                {% if user.avatar %}
+                  <img src="{{ user.avatar.url }}" class="rounded-pill mb-3" style="width: 200px; height: 200px; object-fit: cover;" alt="Аватар пользователя" />
+                {% else %}
+                  <img src="{% static 'img/default.png' %}" class="rounded-pill mb-3" style="width: 200px; height: 200px;" alt="Заглушка" />
+                {% endif %}
+
+              <div id="avatar-upload-wrapper" style="display: none;" class="w-100 px-4">
+                <label class="fs_24 SelfStorage_green ms-2" for="AVATAR">Новый аватар</label>
+                <input type="file" name="avatar" id="AVATAR" class="form-control fs_24 ps-2 SelfStorage__input" />
               </div>
-              <div class="col-12 col-sm-7 d-flex flex-column">
-                <form>
-                  <label class="fs_24 SelfStorage_green ms-2" for="EMAIL">E-mail</label>
-                  <input type="email" name="EMAIL_EDIT" id="EMAIL" class="form-control fs_24 ps-2 SelfStorage__input" value="{{user.email}}" disabled />
-                  <label class="fs_24 SelfStorage_green ms-2" for="PHONE">Телефон</label>
-                  <input type="tel" name="PHONE_EDIT" id="PHONE" class="form-control fs_24 ps-2 SelfStorage__input" value="{{user.phone}}" disabled />
-                  <label class="fs_24 SelfStorage_green ms-2" for="PASSWORD">Пароль</label>
-                  <input type="password" name="PASSWORD_EDIT" id="PASSWORD" class="form-control fs_24 ps-2 SelfStorage__input" value="**********" disabled />
-                  <button type="submit" class="btn SelfStorage_green ps-1" id="save" style="display: none">Сохранить</button>
-                  <a class="btn SelfStorage_orange ps-1" id="edit">Редактировать</a>
-                  <script>
+            </div>
+
+
+            <div class="col-12 col-sm-7 d-flex flex-column">
+              <label class="fs_24 SelfStorage_green ms-2" for="EMAIL">E-mail</label>
+              <input type="email" name="email" id="EMAIL" class="form-control fs_24 ps-2 SelfStorage__input" value="{{ user.email }}" disabled />
+
+              <label class="fs_24 SelfStorage_green ms-2" for="PHONE">Телефон</label>
+              <input type="tel" name="phone" id="PHONE" class="form-control fs_24 ps-2 SelfStorage__input" value="{{ user.phone }}" disabled />
+
+              <label class="fs_24 SelfStorage_green ms-2" for="PASSWORD">Пароль</label>
+              <input type="password" name="password" id="PASSWORD" class="form-control fs_24 ps-2 SelfStorage__input" placeholder="**********" disabled />
+
+              <button type="submit" class="btn SelfStorage_green ps-1" id="save" style="display: none">Сохранить</button>
+              <a class="btn SelfStorage_orange ps-1" id="edit">Редактировать</a>
+            </div>
+          </div>
+        </form>
+                <script>
                     document.getElementById('edit').addEventListener('click', (e) => {
-                      e.preventDefault()
-                      document.getElementById('EMAIL').disabled = false
-                      document.getElementById('PHONE').disabled = false
-                      document.getElementById('PASSWORD').disabled = false
-                      document.getElementById('PASSWORD').type = 'text'
-                      document.getElementById('edit').style.display = 'none'
-                      document.getElementById('save').style.display = 'inline-block'
-                    })
-                    document.getElementById('save').addEventListener('click', () => {
-                      setTimeout(() => {
-                        document.getElementById('EMAIL').disabled = true
-                        document.getElementById('PHONE').disabled = true
-                        document.getElementById('PASSWORD').disabled = true
-                        document.getElementById('PASSWORD').type = 'password'
-                        document.getElementById('edit').style.display = 'inline-block'
-                        document.getElementById('save').style.display = 'none'
-                      }, 0)
-                    })
-                  </script>
-                </form>
+                    e.preventDefault();
+                    document.getElementById('EMAIL').disabled = false;
+                    document.getElementById('PHONE').disabled = false;
+                    document.getElementById('PASSWORD').disabled = false;
+                    document.getElementById('PASSWORD').placeholder = '';
+                    document.getElementById('PASSWORD').value = '';
+                    document.getElementById('PASSWORD').type = 'text';
+                    document.getElementById('avatar-upload-wrapper').style.display = 'block';
+
+                    document.getElementById('edit').style.display = 'none';
+                    document.getElementById('save').style.display = 'inline-block';
+                   });
+                </script>
               </div>
             </div>
           </div>
