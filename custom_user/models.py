@@ -26,7 +26,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     avatar = models.ImageField(upload_to='avatars/', blank=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-
+    phone = models.CharField(max_length=20, blank=True, null=True)
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
