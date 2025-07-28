@@ -36,7 +36,7 @@ def ajax_cells(request):
         .distinct()
         .order_by("id")
     )
-    rendered_template = render_to_string("cells.html", {"cells": cells})
+    rendered_template = render_to_string("cells.html", {"cells": cells}, request=request)
     return JsonResponse({"template": rendered_template}, safe=False)
 
 
