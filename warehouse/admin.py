@@ -6,8 +6,9 @@ from .models import Order, Cell, Warehouse, Request
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ("cell", "start_date", "end_date")
-
+    list_display = ("cell", "start_date", "end_date", "adv_id")
+    list_filter = ("adv_id",)
+    search_fields = ("adv_id",)
 
 @admin.register(Cell)
 class CellAdmin(admin.ModelAdmin):
