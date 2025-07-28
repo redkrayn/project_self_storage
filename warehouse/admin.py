@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Order, Cell, Warehouse
+from .models import Order, Cell, Warehouse, Request
 
 
 @admin.register(Order)
@@ -17,3 +17,8 @@ class CellAdmin(admin.ModelAdmin):
 @admin.register(Warehouse)
 class WarehouseAdmin(admin.ModelAdmin):
     list_display = ("name", "address")
+
+
+@admin.register(Request)
+class RequestAdmin(admin.ModelAdmin):
+    list_display = ("email", "status", "created_at")

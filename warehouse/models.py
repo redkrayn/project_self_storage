@@ -67,6 +67,11 @@ class Order(models.Model):
         return self.end_date - timezone.now() < datetime.timedelta(days=2)
 
 
+class Request(models.Model):
+    email = models.EmailField()
+    status = models.CharField(max_length=255, default="new")
+    created_at = models.DateTimeField(auto_now_add=True)
+
 @receiver(post_save, sender=Order)
 def send_order_creation_email(sender, instance, created, **kwargs):
     if created:

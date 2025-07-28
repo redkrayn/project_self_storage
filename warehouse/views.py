@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from reviews.models import Review
+from .models import Request
 from custom_user.forms import LoginForm, RegistrationForm
 from django.core.mail import send_mail, get_connection
 from django.shortcuts import redirect
@@ -42,6 +43,7 @@ def calculate_cost(request):
                     [email],
                     fail_silently=False,
                 )
+                Request.objects.create(email=email)
             except Exception as e:
                 print(f"Ошибка отправки: {e}")
         return redirect('index')
