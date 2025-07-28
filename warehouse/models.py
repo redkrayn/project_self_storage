@@ -1,11 +1,33 @@
-from django.db import models
-from django.utils import timezone
 import datetime
-from custom_user.models import CustomUser
+
+from django.conf import settings
+from django.core.mail import send_mail
+from django.db import models
+from django.db.models import Count, Exists, Max, Min, OuterRef
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.core.mail import send_mail
-from django.conf import settings
+from django.utils import timezone
+
+from custom_user.models import CustomUser
+
+
+class WarehouseManager(models.Manager):
+    def with_cell_counts(self):
+        return self.annotate(
+            total_cells=Count("cells"),
+            empty_cells=Count(
+                "cells",
+                filter=~Exists(
+                    Order.objects.filter(
+                        cell_id=OuterRef("cells__id"),
+                        is_active=True,
+                    )
+                ),
+                distinct=True,
+            ),
+            min_price=Min("cells__base_price_per_meter"),
+            max_height=Max("cells__height"),
+        )
 
 
 class Warehouse(models.Model):
@@ -17,6 +39,8 @@ class Warehouse(models.Model):
     description = models.TextField()
     contact = models.CharField(max_length=255)
     image = models.ImageField(upload_to="warehouse_images/")
+
+    objects = WarehouseManager()
 
 
 class Cell(models.Model):
@@ -49,9 +73,7 @@ class Order(models.Model):
     end_date = models.DateField(default=month_more)
     price_per_day_overdue = models.FloatField(default=100)
     last_overdue_notification = models.DateTimeField(
-        null=True,
-        blank=True,
-        verbose_name="Уведомление о просрочке"
+        null=True, blank=True, verbose_name="Уведомление о просрочке"
     )
     user = models.ForeignKey(
         CustomUser, on_delete=models.PROTECT, related_name="orders"
@@ -72,6 +94,7 @@ class Request(models.Model):
     email = models.EmailField()
     status = models.CharField(max_length=255, default="new")
     created_at = models.DateTimeField(auto_now_add=True)
+
 
 @receiver(post_save, sender=Order)
 def send_order_creation_email(sender, instance, created, **kwargs):

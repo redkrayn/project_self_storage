@@ -117,24 +117,23 @@
     </article>
 
     <article class="row pt-header">
-      <div class="col-12 col-lg-6 mb-3 mb-lg-0 SelfStorage__img2"></div>
+      <div class="col-12 col-lg-6 mb-3 mb-lg-0 SelfStorage__img2" style="background-image: url('{{ warehouse.image.url}}');"></div>
       <div class="col-12 col-lg-6 d-flex flex-column align-items-center align-items-lg-start">
         <h1 class="text-start fw-bold SelfStorage_green mb-4">Всегда рядом</h1>
-        <h4 class="SelfStorage_grey">Одинцово, ул. Северная, д. 36</h4>
+        <h4 class="SelfStorage_grey">{{warehouse.name}}, {{warehouse.address}}</h4>
         <div class="row">
           <div class="col-6 d-flex flex-column align-items-center align-items-lg-start">
-            <span class="fs_30 fw-bold SelfStorage_orange">18 °С</span>
+            <span class="fs_30 fw-bold SelfStorage_orange">{{warehouse.temperature}} °С</span>
             <span class="SelfStorage_grey mb-3">Температура на складе</span>
-            <span class="fs_30 fw-bold SelfStorage_orange">24 из 258</span>
+            <span class="fs_30 fw-bold SelfStorage_orange">{{warehouse.empty_cells}} из {{warehouse.total_cells}}</span>
             <span class="SelfStorage_grey mb-3">Боксов свободно</span>
           </div>
           <div class="col-6 d-flex flex-column align-items-center align-items-lg-start">
-            <span class="fs_30 fw-bold SelfStorage_orange">до 3.5 м</span>
+            <span class="fs_30 fw-bold SelfStorage_orange">до {{warehouse.max_height|floatformat:"1" }} м</span>
             <span class="SelfStorage_grey mb-3">Высота потолка</span>
-            <span class="fs_30 fw-bold SelfStorage_orange">2264 ₽</span>
+            <span class="fs_30 fw-bold SelfStorage_orange">от {{warehouse.min_price|floatformat:"0" }} ₽ за метр кв</span>
             <span class="SelfStorage_grey mb-3">Оплата за месяц</span>
           </div>
-          <a href="#" class="text-center text-lg-start mt-4 mb-5 SelfStorage_green">Подробнее о складе</a>
           <div class="d-flex flex-column align-items-center align-items-lg-start">
             <button class="btn w-75 fs_24 px-5 py-3 text-white border-8 SelfStorage__bg_green SelfStorage__btn2_green mb-3">Арендовать бокс</button>
             <button class="btn w-75 fs_24 px-5 py-3 text-white border-8 SelfStorage__bg_orange SelfStorage__btn2_orange">Выбрать склад</button>

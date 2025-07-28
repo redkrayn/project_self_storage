@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from reviews.models import Review
-from .models import Request
+from .models import Request, Warehouse
 from custom_user.forms import LoginForm, RegistrationForm
 from django.core.mail import send_mail, get_connection
 from django.shortcuts import redirect
@@ -10,7 +10,9 @@ from django.conf import settings
 
 def show_index(request):
     reviews = Review.objects.all()
+    random_warehouse = Warehouse.objects.with_cell_counts().order_by('?').first()
     return render(request, 'index.html', {
+        'warehouse': random_warehouse,
         'form': LoginForm(),
         'registration_form': RegistrationForm(),
         'reviews': reviews,
