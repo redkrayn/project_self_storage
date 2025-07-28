@@ -44,7 +44,7 @@
           <span class="fs_24">{{ cell.width }} х {{ cell.length }} х {{ cell.height }} м²</span>
         </div>
         <div class="col-12 col-lg-3">
-          <a {% if user.authentificated %}href="{% url 'add_order' cell.id%}"{% endif %} class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">{{ cell.price }} ₽</a>
+          <a {% if user.is_authenticated %}href="{% url 'add_order' cell.id%}"{% endif %} class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">{{ cell.price }} ₽</a>
         </div>
       </span>
     {% endfor %}
@@ -63,7 +63,7 @@
             <span class="fs_24">{{ cell.width }} х {{ cell.length }} х {{ cell.height }} м²</span>
           </div>
           <div class="col-12 col-lg-3">
-            <a {% if user.authentificated %}href="{% url 'add_order' cell.id%}"{% endif %} class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">{{ cell.price }} ₽</a>
+            <a {% if user.is_authenticated %}href="{% url 'add_order' cell.id%}"{% endif %} class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">{{ cell.price }} ₽</a>
           </div>
         </a>
       {% endif %}
@@ -83,7 +83,7 @@
             <span class="fs_24">{{ cell.width }} х {{ cell.length }} х {{ cell.height }} м²</span>
           </div>
           <div class="col-12 col-lg-3">
-            <a {% if user.authentificated %}href="{% url 'add_order' cell.id%}"{% endif %} class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">{{ cell.price }} ₽</a>
+            <a {% if user.is_authenticated %}href="{% url 'add_order' cell.id%}"{% endif %} class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">{{ cell.price }} ₽</a>
           </div>
         </a>
       {% endif %}
@@ -103,7 +103,7 @@
             <span class="fs_24">{{ cell.width }} х {{ cell.length }} х {{ cell.height }} м²</span>
           </div>
           <div class="col-12 col-lg-3">
-            <a {% if user.authentificated %}href="{% url 'add_order' cell.id%}"{% endif %} class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">{{ cell.price }} ₽</a>
+            <a {% if user.is_authenticated %}href="{% url 'add_order' cell.id%}"{% endif %} class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">{{ cell.price }} ₽</a>
           </div>
         </a>
       {% endif %}
