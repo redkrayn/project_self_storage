@@ -89,4 +89,5 @@ def add_order(request, cell_id):
 
 @login_required
 def show_profile(request):
-    return render(request, "my-rent.html")
+    orders = Order.objects.filter(user=request.user).order_by("-created_at") 
+    return render(request, "my-rent.html", {"orders": orders})
