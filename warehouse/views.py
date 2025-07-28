@@ -8,7 +8,7 @@ from django.template.loader import render_to_string
 from custom_user.forms import LoginForm, RegistrationForm
 from reviews.models import Review
 
-from .models import Cell, Request, Warehouse
+from .models import Cell, Request, Warehouse, Order
 
 
 def show_index(request):
@@ -30,10 +30,13 @@ def show_index(request):
 
 def ajax_cells(request):
     warehouse_id = request.GET.get("warehouse_id")
-    cells = Cell.objects.filter(warehouse_id=warehouse_id)
-    rendered_template = render_to_string(
-        "cells.html", {"cells": cells}
+    cells = (
+        Cell.objects.filter(warehouse_id=warehouse_id)
+        .exclude(orders__is_active=True)
+        .distinct()
+        .order_by("id")
     )
+    rendered_template = render_to_string("cells.html", {"cells": cells})
     return JsonResponse({"template": rendered_template}, safe=False)
 
 
@@ -48,9 +51,17 @@ def show_faq(request):
 def show_boxes(request, warehouse_id=None):
     if not warehouse_id:
         warehouse_id = Warehouse.objects.order_by("name").first().id
+    cells = (
+        Cell.objects.filter(warehouse_id=warehouse_id)
+        .exclude(orders__is_active=True)
+        .distinct()
+        .order_by("id")
+    )
     warehouses = Warehouse.objects.with_cell_counts().all()
     return render(
-        request, "boxes.html", {"warehouses": warehouses, "warehouse_id": warehouse_id}
+        request,
+        "boxes.html",
+        {"warehouses": warehouses, "warehouse_id": warehouse_id, "cells": cells},
     )
 
 
@@ -71,6 +82,13 @@ def calculate_cost(request):
                 print(f"Ошибка отправки: {e}")
         return redirect("index")
     return redirect("index")
+
+
+@login_required
+def add_order(request, cell_id):
+    cell = Cell.objects.get(id=cell_id)
+    Order.objects.create(cell=cell, user=request.user)
+    return redirect("profile")
 
 
 @login_required

@@ -5,18 +5,19 @@ from django.contrib.auth.views import LogoutView
 from django.urls import path
 
 from custom_user.views import login_view, register
-from warehouse import views
 from warehouse.views import (
     show_boxes,
     show_faq,
     show_index,
     show_personal_account,
     show_profile,
-    ajax_cells
+    ajax_cells,
+    add_order,
+    calculate_cost
 )
 
 urlpatterns = [
-    path("calculate-cost/", views.calculate_cost, name="calculate_cost"),
+    path("calculate-cost/", calculate_cost, name="calculate_cost"),
     path("admin/", admin.site.urls),
     path("", show_index, name="index"),
     path("personal-account/", show_personal_account, name="personal-account"),
@@ -28,4 +29,5 @@ urlpatterns = [
     path("profile/", show_profile, name="profile"),
     path("logout/", LogoutView.as_view(next_page="index"), name="logout"),
     path("ajax_cells/", ajax_cells, name="ajax_cells"),
+    path("add_order/<int:cell_id>/", add_order, name="add_order")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
