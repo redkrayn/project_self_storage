@@ -1,15 +1,16 @@
 from django.conf import settings
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from django.core.mail import get_connection, send_mail
+from django.core.mail import send_mail
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
-from django.contrib import messages
 
 from custom_user.forms import LoginForm, RegistrationForm
 from reviews.models import Review
 
-from .models import Cell, Request, Warehouse, Order
+from .models import Cell, Order, Request, Warehouse
 
 
 def show_index(request):
@@ -37,7 +38,9 @@ def ajax_cells(request):
         .distinct()
         .order_by("id")
     )
-    rendered_template = render_to_string("cells.html", {"cells": cells}, request=request)
+    rendered_template = render_to_string(
+        "cells.html", {"cells": cells}, request=request
+    )
     return JsonResponse({"template": rendered_template}, safe=False)
 
 
@@ -110,14 +113,19 @@ def show_profile(request):
 
         user.save()
         messages.success(request, "Данные успешно обновлены!")
+        update_session_auth_hash(request, user)
         return redirect("profile")
 
     orders = Order.objects.filter(user=user).order_by("-end_date")
 
-    return render(request, "my-rent.html", {
-        "user": user,
-        "orders": orders,
-    })
+    return render(
+        request,
+        "my-rent.html",
+        {
+            "user": user,
+            "orders": orders,
+        },
+    )
 
 
 def sales(request, adv_id):
