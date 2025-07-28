@@ -48,7 +48,8 @@ INSTALLED_APPS = [
 
     'warehouse.apps.WarehouseConfig',
     'custom_user.apps.CustomUserConfig',
-    'reviews.apps.ReviewsConfig'
+    'reviews.apps.ReviewsConfig',
+    'qr_code'
 ]
 
 MIDDLEWARE = [

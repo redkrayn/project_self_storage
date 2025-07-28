@@ -5,3 +5,4 @@ pillow==11.2.1
 django-celery-beat==2.8.1
 redis==6.2.0
 honcho==2.0.0
+django-qr-code==4.2.0

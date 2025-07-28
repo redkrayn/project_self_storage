@@ -1,6 +1,7 @@
 {% extends 'base_template.html' %}
 {% load static %}
 {% block content %}
+{% load qr_code %}
   <main class="container mt-header">
     <div class="row" role="tablist">
       <div class="col-lg-3 d-flex flex-column nav nav-pills">
@@ -52,6 +53,7 @@
           </div>
           <div class="tab-pane fade" id="Rent" role="tabpanel" aria-labelledby="Rent-tab">
             <h1 class="fw-bold SelfStorage_green mb-5">Добрый день, {{user.name}}!</h1>
+            {% qr_from_text user.name size="T" %}
             <a href="#" class="SelfStorage_orange">История аренды</a>
             <h4 class="SelfStorage_grey my-3">Срок Вашей аренды подходит к концу :(<br />Вы можете продлить аренду или забрать вещи до 28 июня 2022 года включительно.</h4>
             <div class="mb-5">
