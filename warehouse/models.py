@@ -84,6 +84,7 @@ class Order(models.Model):
     )
     string_for_qr_code = models.UUIDField(default=uuid.uuid4)
     is_active = models.BooleanField(default=True)
+    adv_id = models.IntegerField(null=True, blank=True)
 
     @property
     def is_overdue(self):
@@ -119,7 +120,7 @@ def send_order_creation_email(sender, instance, created, **kwargs):
         Ячейка: {cell_id}
         Дата начала: {start_date}
         Дата окончания: {end_date}
-        Стоимость: {instance.cell} руб./день
+        Стоимость: {instance.price_per_day_overdue} руб./день
 
         """
         send_mail(

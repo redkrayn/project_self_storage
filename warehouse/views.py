@@ -65,6 +65,7 @@ def calculate_cost(request):
     if request.method == "POST":
         email = request.POST.get("EMAIL1") or request.POST.get("EMAIL2")
         if email:
+            Request.objects.create(email=email)
             try:
                 send_mail(
                     "Hi everynyan",
@@ -73,7 +74,6 @@ def calculate_cost(request):
                     [email],
                     fail_silently=False,
                 )
-                Request.objects.create(email=email)
             except Exception as e:
                 print(f"Ошибка отправки: {e}")
         return redirect("index")
@@ -82,8 +82,9 @@ def calculate_cost(request):
 
 @login_required
 def add_order(request, cell_id):
+    adv_id = request.session.pop("adv_id", None)
     cell = Cell.objects.get(id=cell_id)
-    Order.objects.create(cell=cell, user=request.user)
+    Order.objects.create(cell=cell, user=request.user, adv_id=adv_id)
     return redirect("profile")
 
 
@@ -91,3 +92,8 @@ def add_order(request, cell_id):
 def show_profile(request):
     orders = Order.objects.filter(user=request.user).order_by("-created_at") 
     return render(request, "my-rent.html", {"orders": orders})
+
+
+def sales(request, adv_id):
+    request.session["adv_id"] = adv_id
+    return redirect("index")
