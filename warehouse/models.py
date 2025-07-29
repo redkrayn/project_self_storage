@@ -66,6 +66,9 @@ class Cell(models.Model):
     def area(self):
         return self.width * self.length
 
+    def __str__(self):
+        return f"{self.cell_id}"
+
 
 def month_more():
     return timezone.now() + timezone.timedelta(days=30)
