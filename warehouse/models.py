@@ -66,6 +66,9 @@ class Cell(models.Model):
     def area(self):
         return self.width * self.length
 
+    def __str__(self):
+        return f"{self.cell_id}"
+
 
 def month_more():
     return timezone.now() + timezone.timedelta(days=30)
@@ -92,7 +95,7 @@ class Order(models.Model):
 
     @property
     def is_near_end(self):
-        return self.end_date - timezone.now() < datetime.timedelta(days=2)
+        return self.end_date - timezone.now().date() < datetime.timedelta(days=2)
 
 
 class Request(models.Model):
@@ -110,7 +113,7 @@ def send_order_creation_email(sender, instance, created, **kwargs):
         start_date = instance.start_date.strftime("%d.%m.%Y")
         end_date = instance.end_date.strftime("%d.%m.%Y")
 
-        subject = f"Ваш заказ успешно создан"
+        subject = "Ваш заказ успешно создан"
         message = f"""
         Здравствуйте!
 
@@ -128,5 +131,5 @@ def send_order_creation_email(sender, instance, created, **kwargs):
             message=message,
             from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=[user_email],
-            fail_silently=False,
+            fail_silently=True,
         )

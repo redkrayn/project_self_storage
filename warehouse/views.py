@@ -1,5 +1,4 @@
 from django.conf import settings
-from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
@@ -86,7 +85,7 @@ def calculate_cost(request):
 
 @login_required
 def add_order(request, cell_id):
-    adv_id = request.session.pop("adv_id", None)
+    adv_id = request.session.get("adv_id", None)
     cell = Cell.objects.get(id=cell_id)
     Order.objects.create(cell=cell, user=request.user, adv_id=adv_id)
     return redirect("profile")
@@ -116,13 +115,15 @@ def show_profile(request):
         return redirect("profile")
 
     orders = Order.objects.filter(user=user).order_by("-end_date")
-
+    active_orders = orders.filter(is_active=True)
+    old_orders = orders.filter(is_active=False)
     return render(
         request,
         "my-rent.html",
         {
             "user": user,
-            "orders": orders,
+            "active_orders": active_orders,
+            "old_orders": old_orders
         },
     )
 
