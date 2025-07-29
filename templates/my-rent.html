@@ -56,7 +56,7 @@
           </div>
           <div class="tab-pane fade" id="Rent" role="tabpanel" aria-labelledby="Rent-tab">
             <h1 class="fw-bold SelfStorage_green mb-5">Добрый день, {{ user.name }}!</h1>
-            
+
             <a href="#OLD" class="SelfStorage_orange">История аренды</a>
             {% for order in active_orders %}
               {% if order.is_near_end %}
@@ -73,9 +73,13 @@
                   <button class="btn fs_24 px-5 py-3 text-white border-8 SelfStorage__bg_green SelfStorage__btn2_green mb-3">Продлить аренду</button>
                 </div>
                 <div>
-                  <button class="btn fs_24 px-5 py-3 text-white border-8 SelfStorage__bg_orange SelfStorage__btn2_orange mb-3">Открыть бокс</button>
-                  {% qr_from_text order.string_for_qr_code size='T'%}
-                <a href="#" class="SelfStorage_orange">Нужна помощь?</a>
+                  <button data-popup="popup{{ order.id }}" class="btn fs_24 px-5 py-3 text-white border-8 SelfStorage__bg_orange SelfStorage__btn2_orange mb-3">Открыть бокс</button>
+                  <div class="popup" id="popup{{order.id}}">
+                    <span class="close-btn" onclick="closePopup(this.parentNode.id)">&times;</span>
+                    <p>{% qr_from_text order.string_for_qr_code size='T' %}</p>
+                  </div>
+                  <a href="#" class="SelfStorage_orange">Нужна помощь?</a>
+                </div>
               </div>
             {% endfor %}
             <div id="OLD">
@@ -96,4 +100,27 @@
       </div>
     </div>
   </main>
+{% endblock %}
+{% block extra_scripts %}
+<script>
+function openPopup(popupId) {
+    const popupElement = document.getElementById(popupId);
+    if (popupElement) {
+        popupElement.style.display = 'block'; 
+    }
+}
+
+function closePopup(popupId) {
+    const popupElement = document.getElementById(popupId);
+    if (popupElement) {
+        popupElement.style.display = 'none'; 
+    }
+}
+
+document.querySelectorAll('[data-popup]').forEach(button => {
+    button.addEventListener('click', () => {
+        openPopup(button.dataset.popup); 
+    });
+});
+</script>
 {% endblock %}
