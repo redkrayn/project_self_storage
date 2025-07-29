@@ -110,7 +110,7 @@ def send_order_creation_email(sender, instance, created, **kwargs):
         start_date = instance.start_date.strftime("%d.%m.%Y")
         end_date = instance.end_date.strftime("%d.%m.%Y")
 
-        subject = f"Ваш заказ успешно создан"
+        subject = "Ваш заказ успешно создан"
         message = f"""
         Здравствуйте!
 
