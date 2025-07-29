@@ -85,7 +85,7 @@ def calculate_cost(request):
 
 @login_required
 def add_order(request, cell_id):
-    adv_id = request.session.pop("adv_id", None)
+    adv_id = request.session.get("adv_id", None)
     cell = Cell.objects.get(id=cell_id)
     Order.objects.create(cell=cell, user=request.user, adv_id=adv_id)
     return redirect("profile")
