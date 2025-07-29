@@ -88,15 +88,22 @@ class Order(models.Model):
     string_for_qr_code = models.UUIDField(default=uuid.uuid4)
     is_active = models.BooleanField(default=True)
     adv_id = models.IntegerField(null=True, blank=True)
+    
 
     @property
     def is_overdue(self):
-        return self.end_date < timezone.now()
+        if self.end_date > timezone.now().date():
+            return 0
+        else:
+            days = (timezone.now().date() - self.end_date).days
+            return days
 
     @property
     def is_near_end(self):
         return self.end_date - timezone.now().date() < datetime.timedelta(days=2)
 
+    def total_price(self):
+        return self.price_per_day_overdue * self.is_overdue
 
 class Request(models.Model):
     email = models.EmailField()

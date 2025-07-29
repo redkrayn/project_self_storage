@@ -59,8 +59,12 @@
             {% if active_orders.count > 0 %}
               <a href="#OLD" class="SelfStorage_orange">История аренды</a>
               {% for order in active_orders %}
-                {% if order.is_near_end %}
-                  <h4 class="SelfStorage_grey my-3">Срок Вашей аренды подходит к концу :(<br />Вы можете продлить аренду или забрать вещи до {{ order.end_date }} включительно.</h4>
+                {% if order.is_overdue > 0 %}
+                  <h4 class="SelfStorage_grey my-3">Просрочена аренда на {{ order.is_overdue }} дней. Доп плата {{ order.total_price }}</h4>
+                {% else %}
+                  {% if order.is_near_end %}
+                    <h4 class="SelfStorage_grey my-3">Срок Вашей аренды подходит к концу :(<br />Вы можете продлить аренду или забрать вещи до {{ order.end_date }} включительно.</h4>
+                  {% endif %}
                 {% endif %}
                 <div class="mb-5">
                   <h4 class="SelfStorage_green">{{ order.cell.warehouse.name }}</h4>
