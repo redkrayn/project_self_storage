@@ -116,13 +116,15 @@ def show_profile(request):
         return redirect("profile")
 
     orders = Order.objects.filter(user=user).order_by("-end_date")
-
+    active_orders = orders.filter(is_active=True)
+    old_orders = orders.filter(is_active=False)
     return render(
         request,
         "my-rent.html",
         {
             "user": user,
-            "orders": orders,
+            "active_orders": active_orders,
+            "old_orders": old_orders
         },
     )
 

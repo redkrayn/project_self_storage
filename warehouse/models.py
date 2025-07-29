@@ -92,7 +92,7 @@ class Order(models.Model):
 
     @property
     def is_near_end(self):
-        return self.end_date - timezone.now() < datetime.timedelta(days=2)
+        return self.end_date - timezone.now().date() < datetime.timedelta(days=2)
 
 
 class Request(models.Model):
