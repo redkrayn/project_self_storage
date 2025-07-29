@@ -128,5 +128,5 @@ def send_order_creation_email(sender, instance, created, **kwargs):
             message=message,
             from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=[user_email],
-            fail_silently=False,
+            fail_silently=True,
         )
