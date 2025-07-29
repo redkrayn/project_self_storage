@@ -114,7 +114,7 @@ def show_profile(request):
         update_session_auth_hash(request, user)
         return redirect("profile")
 
-    orders = Order.objects.filter(user=user).order_by("-end_date")
+    orders = Order.objects.filter(user=user).order_by("end_date")
     active_orders = orders.filter(is_active=True)
     old_orders = orders.filter(is_active=False)
     return render(
