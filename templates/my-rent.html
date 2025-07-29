@@ -77,7 +77,7 @@
                     <div class="popup" id="popup{{ order.id }}">
                       <span class="close-btn" onclick="closePopup(this.parentNode.id)">&times;</span>
                       <p>
-                        {% qr_from_text order.string_for_qr_code size='T' %}
+                        {% qr_from_text order.string_for_qr_code size='H' %}
                       </p>
                     </div>
                     <a href="#" class="SelfStorage_orange">Нужна помощь?</a>
