@@ -14,4 +14,8 @@ app.conf.beat_schedule = {
         'task': 'storage.tasks.check_overdue_orders',
         'schedule': 86400,
     },
+    'daily-send-rent-reminders': {
+        'task': 'storage.tasks.send_rent_reminders',
+        'schedule': 86400,
+    },
 }

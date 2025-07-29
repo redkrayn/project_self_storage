@@ -88,6 +88,9 @@ class Order(models.Model):
     string_for_qr_code = models.UUIDField(default=uuid.uuid4)
     is_active = models.BooleanField(default=True)
     adv_id = models.IntegerField(null=True, blank=True)
+    reminder_14d_sent = models.DateTimeField(null=True, blank=True)
+    reminder_7d_sent = models.DateTimeField(null=True, blank=True)
+    reminder_3d_sent = models.DateTimeField(null=True, blank=True)
 
     @property
     def is_overdue(self):
